@@ -23,6 +23,8 @@ public final class Main extends JavaPlugin {
         for (Player online : Bukkit.getOnlinePlayers()) {
             ScoreboardManager.getInstance(online.getUniqueId()).setScoreboard();
         }
+
+        saveDefaultConfig();
     }
 
     @Override

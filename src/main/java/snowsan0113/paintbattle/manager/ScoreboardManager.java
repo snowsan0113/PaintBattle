@@ -96,11 +96,14 @@ public class ScoreboardManager {
 
     private void updateScoreboard() {
         if (task == null) {
+            AreaPaintManager paint = AreaPaintManager.getInstance();
             this.task = new BukkitRunnable() {
                 @Override
                 public void run() {
                     if (manager.getStatus() == GameManager.GameStatus.RUNNING) {
                         getScore(28).updateScore(ChatColor.GOLD + ((manager.getTime() / 60) + "分" + (manager.getTime() % 60) + "秒"));
+                        getScore(26).updateScore(ChatColor.RED + "赤の塗り率：" + ChatColor.WHITE + Math.ceil(paint.getPaintPercent(TeamManager.GameTeam.RED)) + "%");
+                        getScore(25).updateScore(ChatColor.BLUE + "青の塗り率：" + ChatColor.WHITE + Math.ceil(paint.getPaintPercent(TeamManager.GameTeam.BLUE)) + "%");
                     }
                     else if (manager.getStatus() == GameManager.GameStatus.WAIITNG || manager.getStatus() == GameManager.GameStatus.CONNTING) {
                         getScore(26).updateScore(ChatColor.GOLD + "現在の人数：" + Bukkit.getOnlinePlayers().size());
