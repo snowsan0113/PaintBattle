@@ -1,6 +1,7 @@
 package snowsan0113.paintbattle.manager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -15,11 +16,13 @@ public class GameManager {
     private int game_time;
     private int count_time;
     private GameStatus status;
+    private World world;
 
     private GameManager() {
         this.count_time = 10;
         this.game_time = 60*15;
         this.status = GameStatus.WAIITNG;
+        this.world = Bukkit.getWorlds().get(0);
     }
 
     public static GameManager getInstance() {
@@ -75,6 +78,14 @@ public class GameManager {
 
     public GameStatus getStatus() {
         return status;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     public enum GameStatus {
