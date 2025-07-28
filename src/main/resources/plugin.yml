@@ -2,3 +2,8 @@ name: PaintBattle
 version: '${project.version}'
 main: snowsan0113.paintbattle.Main
 api-version: '1.20'
+
+commands:
+  paintbattle_start:
+    description: ゲームを開始するコマンド
+    permission: snowsan0113.paint_battle.command.game_start
