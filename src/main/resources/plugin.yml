@@ -7,3 +7,6 @@ commands:
   paintbattle_start:
     description: ゲームを開始するコマンド
     permission: snowsan0113.paint_battle.command.game_start
+  paintbattle_team:
+    description: チームに関するコマンド
+    permission: snowsan0113.paint_battle.command.team

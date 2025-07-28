@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import snowsan0113.paintbattle.command.GameStartCommand;
+import snowsan0113.paintbattle.command.TeamCommand;
 import snowsan0113.paintbattle.manager.ScoreboardManager;
 
 public final class Main extends JavaPlugin {
@@ -13,6 +14,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         //command
         getCommand("paintbattle_start").setExecutor(new GameStartCommand());
+        getCommand("paintbattle_team").setExecutor(new TeamCommand());
 
         //listener
         PluginManager plm = getServer().getPluginManager();
