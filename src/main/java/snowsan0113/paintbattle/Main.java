@@ -1,8 +1,11 @@
 package snowsan0113.paintbattle;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import snowsan0113.paintbattle.command.GameStartCommand;
+import snowsan0113.paintbattle.manager.ScoreboardManager;
 
 public final class Main extends JavaPlugin {
 
@@ -13,6 +16,11 @@ public final class Main extends JavaPlugin {
 
         //listener
         PluginManager plm = getServer().getPluginManager();
+
+        //other
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            ScoreboardManager.getInstance(online.getUniqueId()).setScoreboard();
+        }
     }
 
     @Override

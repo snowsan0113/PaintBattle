@@ -1,5 +1,7 @@
 package snowsan0113.paintbattle.manager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import snowsan0113.paintbattle.Main;
@@ -34,6 +36,10 @@ public class GameManager {
                         if (count_time == 0) {
                             ChatUtil.sendGlobalMessage("ゲーム開始!");
                             status = GameStatus.RUNNING;
+
+                            for (Player online : Bukkit.getOnlinePlayers()) {
+                                ScoreboardManager.getInstance(online.getUniqueId()).setScoreboard();
+                            }
                         }
                         else {
                             String format = String.format("ゲーム開始まであと%d秒", count_time);
