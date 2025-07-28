@@ -1,0 +1,4 @@
+name: PaintBattle
+version: '${project.version}'
+main: snowsan0113.paintbattle.Main
+api-version: '1.20'
