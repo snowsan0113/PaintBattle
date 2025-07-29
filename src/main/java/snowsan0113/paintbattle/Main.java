@@ -6,7 +6,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import snowsan0113.paintbattle.command.GameStartCommand;
 import snowsan0113.paintbattle.command.TeamCommand;
+import snowsan0113.paintbattle.listener.PlayerClickListener;
 import snowsan0113.paintbattle.manager.ScoreboardManager;
+import snowsan0113.paintbattle.manager.weapon.RollerWeapon;
+import snowsan0113.paintbattle.manager.weapon.WeaponManager;
 
 public final class Main extends JavaPlugin {
 
@@ -18,6 +21,7 @@ public final class Main extends JavaPlugin {
 
         //listener
         PluginManager plm = getServer().getPluginManager();
+        plm.registerEvents(new PlayerClickListener(), this);
 
         //other
         for (Player online : Bukkit.getOnlinePlayers()) {

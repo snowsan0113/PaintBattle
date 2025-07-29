@@ -8,5 +8,6 @@ public interface Weapon {
     WeaponType getType();
     float getHealth();
     boolean canUseWeapon();
+    void runClickAction();
 
 }

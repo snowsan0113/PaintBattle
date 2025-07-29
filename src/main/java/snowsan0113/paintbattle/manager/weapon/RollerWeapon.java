@@ -2,11 +2,14 @@ package snowsan0113.paintbattle.manager.weapon;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.util.Vector;
 import snowsan0113.paintbattle.Main;
 
 public class RollerWeapon implements Weapon {
@@ -57,5 +60,13 @@ public class RollerWeapon implements Weapon {
 
     public BukkitTask getTask() {
         return task;
+    }
+
+    @Override
+    public void runClickAction() {
+        Location p_loc = player.getLocation();
+        Vector p_direction = p_loc.getDirection().clone();
+        Snowball snowball = player.launchProjectile(Snowball.class);
+        snowball.setVelocity(p_direction.normalize().multiply(2));
     }
 }
