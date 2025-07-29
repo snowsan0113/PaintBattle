@@ -4,7 +4,8 @@ import org.bukkit.Material;
 
 public enum WeaponType {
     SHOTTER("シューター", Material.STONE, 300.0F),
-    ROLLER("ローラー", Material.GRASS_BLOCK, 300.0F);
+    ROLLER("ローラー", Material.GRASS_BLOCK, 300.0F),
+    UNKNOWN("", Material.AIR, 0F);
 
     private final String weapon_string;
     private final Material block;
