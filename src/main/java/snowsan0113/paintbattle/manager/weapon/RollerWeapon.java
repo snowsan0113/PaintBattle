@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 import snowsan0113.paintbattle.Main;
+import snowsan0113.paintbattle.util.ChatUtil;
 
 public class RollerWeapon implements Weapon {
 
@@ -68,5 +69,17 @@ public class RollerWeapon implements Weapon {
         Vector p_direction = p_loc.getDirection().clone();
         Snowball snowball = player.launchProjectile(Snowball.class);
         snowball.setVelocity(p_direction.normalize().multiply(2));
+    }
+
+    @Override
+    public void reset() {
+        ChatUtil.sendMessage(player, "武器をリロードしています");
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                health = WeaponType.ROLLER.getHealth();
+                ChatUtil.sendMessage(player, "武器をリロードしました!");
+            }
+        }.runTaskLater(Main.getPlugin(Main.class), 20L);
     }
 }

@@ -9,5 +9,6 @@ public interface Weapon {
     float getHealth();
     boolean canUseWeapon();
     void runClickAction();
+    void reset();
 
 }
