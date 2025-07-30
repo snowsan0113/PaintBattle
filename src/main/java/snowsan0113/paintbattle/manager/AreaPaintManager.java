@@ -18,7 +18,7 @@ public class AreaPaintManager {
     private final FileConfiguration config;
 
     //util
-    private static final Map<TeamManager.GameTeam, Material> paint_wool = Map.of(
+    public static final Map<TeamManager.GameTeam, Material> paint_wool_map = Map.of(
             TeamManager.GameTeam.RED, Material.RED_WOOL,
             TeamManager.GameTeam.BLUE, Material.BLUE_WOOL,
             TeamManager.GameTeam.GREEN, Material.GREEN_WOOL,
@@ -51,29 +51,10 @@ public class AreaPaintManager {
     }
 
     public double getPaintPercent(TeamManager.GameTeam team) {
-        Location start = getAreaStart();
-        Location end = getAreaEnd();
-        int min_x = Math.min(start.getBlockX(), end.getBlockX());
-        int max_x = Math.max(start.getBlockX(), end.getBlockX());
-
-        int min_y = Math.min(start.getBlockY(), end.getBlockY());
-        int max_y = Math.max(start.getBlockY(), end.getBlockY());
-
-        int min_z = Math.min(start.getBlockZ(), end.getBlockZ());
-        int max_z = Math.max(start.getBlockZ(), end.getBlockZ());
-
-        List<Location> location_list = new ArrayList<>();
-        for (int x = min_x; x <= max_x; x++) {
-            for (int y = min_y; y <= max_y; y++) {
-                for (int z = min_z; z <= max_z; z++) {
-                    location_list.add(new Location(start.getWorld(), x, y, z));
-                }
-            }
-        }
-
+        List<Location> location_list = new MapManager().getLocationList();
         long wool_size = location_list.stream().filter(location -> {
             Block block = location.getBlock();
-            return block.getType() == paint_wool.get(team);
+            return block.getType() == paint_wool_map.get(team);
         }).count();
 
         return ((double) wool_size / location_list.size()) * 100;

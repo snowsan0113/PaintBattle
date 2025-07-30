@@ -13,3 +13,6 @@ commands:
   paintbattle_weapon:
     description: 武器に関するコマンド
     permission: snowsan0113.paint_battle.command.weapon
+  paintbattle_map:
+    description: マップに関するコマンド
+    permission: snowsan0113.paint_battle.command.map

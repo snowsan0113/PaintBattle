@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import snowsan0113.paintbattle.command.GameStartCommand;
+import snowsan0113.paintbattle.command.MapCommand;
 import snowsan0113.paintbattle.command.TeamCommand;
 import snowsan0113.paintbattle.command.WeaponCommand;
 import snowsan0113.paintbattle.listener.InventoryClickListener;
@@ -22,6 +23,7 @@ public final class Main extends JavaPlugin {
         getCommand("paintbattle_start").setExecutor(new GameStartCommand());
         getCommand("paintbattle_team").setExecutor(new TeamCommand());
         getCommand("paintbattle_weapon").setExecutor(new WeaponCommand());
+        getCommand("paintbattle_map").setExecutor(new MapCommand());
 
         //listener
         PluginManager plm = getServer().getPluginManager();
