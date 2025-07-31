@@ -7,10 +7,12 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 import snowsan0113.paintbattle.Main;
+import snowsan0113.paintbattle.manager.TeamManager;
 import snowsan0113.paintbattle.util.ChatUtil;
 
 public class ShooterWeapon implements Weapon {
@@ -66,6 +68,12 @@ public class ShooterWeapon implements Weapon {
         Vector p_direction = p_loc.getDirection().clone();
         Snowball snowball = player.launchProjectile(Snowball.class);
         snowball.setVelocity(p_direction.normalize().multiply(2));
+    }
+
+    @Override
+    public void paintWool(Location location) {
+        TeamManager.GameTeam team = TeamManager.getInstance().getJoinGameTeam(player);
+
     }
 
     @Override

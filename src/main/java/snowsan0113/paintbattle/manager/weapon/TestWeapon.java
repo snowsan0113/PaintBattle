@@ -67,6 +67,11 @@ public class TestWeapon implements Weapon {
     }
 
     @Override
+    public void paintWool(Location location) {
+
+    }
+
+    @Override
     public void reset() {
         ChatUtil.sendMessage(player, "武器をリロードしています");
         new BukkitRunnable() {
