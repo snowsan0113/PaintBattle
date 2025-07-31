@@ -18,10 +18,12 @@ public class RollerWeapon implements Weapon {
     private final Player player;
     private final BukkitTask task;
     private float health;
+    private boolean canUse;
 
     public RollerWeapon(Player player) {
         this.player = player;
         this.health = WeaponType.ROLLER.getHealth();
+        this.canUse = true;
         this.task = new BukkitRunnable() {
             @Override
             public void run() {
@@ -34,6 +36,9 @@ public class RollerWeapon implements Weapon {
                             health--;
                         }
                     }
+
+                    //flag
+                    canUse = (health > 0);
                 }
             }
         }.runTaskTimer(Main.getPlugin(Main.class), 0L, 2L);
@@ -56,7 +61,7 @@ public class RollerWeapon implements Weapon {
 
     @Override
     public boolean canUseWeapon() {
-        return (health != 0);
+        return canUse;
     }
 
     public BukkitTask getTask() {
