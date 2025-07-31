@@ -27,7 +27,7 @@ public class InventoryClickListener implements Listener {
         if (view.getTitle().equalsIgnoreCase(ChatColor.BLACK + "武器を選択してください")) {
             for (WeaponType type : WeaponType.values()) {
                 if (type != WeaponType.UNKNOWN) {
-                    if (current.getType() == WeaponType.ROLLER.getBlock()) {
+                    if (current.getType() == WeaponType.ROLLER.getItem().getType()) {
                         weapon.setWeapon((OfflinePlayer) player, new RollerWeapon((Player) player));
                     }
                 }

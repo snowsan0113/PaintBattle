@@ -57,7 +57,7 @@ public class WeaponManager {
         for (int i = 0; i < values.length; i++) {
             WeaponType type = values[i];
             if (type != WeaponType.UNKNOWN) {
-                inv.setItem(i, new ItemUtil(type.getBlock()).setDisplayLore(type.getWeaponString(), Arrays.asList(type.getDescription())).build());
+                inv.setItem(i, new ItemUtil(type.getItem().getType()).setDisplayLore(type.getWeaponString(), Arrays.asList(type.getDescription())).build());
             }
         }
 
