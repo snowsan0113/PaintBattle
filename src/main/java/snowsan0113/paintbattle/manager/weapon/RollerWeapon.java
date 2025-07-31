@@ -25,7 +25,7 @@ public class RollerWeapon implements Weapon {
         this.task = new BukkitRunnable() {
             @Override
             public void run() {
-                if (player.getItemInHand().getType() == WeaponType.ROLLER.getBlock()) {
+                if (player.getItemInHand().getType() == WeaponType.ROLLER.getItem().getType()) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("残りの武器体力：" + health));
                     if (canUseWeapon()) {
                         Block block = player.getLocation().clone().subtract(0, 1, 0).getBlock();
