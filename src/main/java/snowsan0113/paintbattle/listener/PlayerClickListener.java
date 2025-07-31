@@ -1,6 +1,7 @@
 package snowsan0113.paintbattle.listener;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -23,6 +24,8 @@ public class PlayerClickListener implements Listener {
             else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
                 player_weapon.runClickAction();
             }
+            event.setCancelled(true);
+            event.setUseInteractedBlock(Event.Result.DENY);
         }
     } 
     
