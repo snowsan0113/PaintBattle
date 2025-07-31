@@ -9,6 +9,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import snowsan0113.paintbattle.util.ItemUtil;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,7 +45,9 @@ public class WeaponManager {
         return weapon_map.get(player);
     }
 
-    public void setWeapon(OfflinePlayer player, Weapon weapon) {
+    public void setWeapon(OfflinePlayer player, WeaponType type) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Constructor<? extends Weapon> constructor = type.getWeaponClass().getConstructor(Player.class);
+        Weapon weapon = constructor.newInstance(player.getPlayer());
         weapon_map.put(player, weapon);
     }
 

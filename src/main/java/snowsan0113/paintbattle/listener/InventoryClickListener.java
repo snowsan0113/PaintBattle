@@ -14,10 +14,12 @@ import snowsan0113.paintbattle.manager.weapon.RollerWeapon;
 import snowsan0113.paintbattle.manager.weapon.WeaponManager;
 import snowsan0113.paintbattle.manager.weapon.WeaponType;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class InventoryClickListener implements Listener {
 
     @EventHandler
-    public void onClick(InventoryClickEvent event) {
+    public void onClick(InventoryClickEvent event) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         ItemStack current = event.getCurrentItem();
         InventoryView view = event.getView();
         int slot = event.getSlot();
@@ -27,8 +29,8 @@ public class InventoryClickListener implements Listener {
         if (view.getTitle().equalsIgnoreCase(ChatColor.BLACK + "武器を選択してください")) {
             for (WeaponType type : WeaponType.values()) {
                 if (type != WeaponType.UNKNOWN) {
-                    if (current.getType() == WeaponType.ROLLER.getItem().getType()) {
-                        weapon.setWeapon((OfflinePlayer) player, new RollerWeapon((Player) player));
+                    if (current.getType() == type.getItem().getType()) {
+                        weapon.setWeapon((OfflinePlayer) player, type);
                     }
                 }
             }
