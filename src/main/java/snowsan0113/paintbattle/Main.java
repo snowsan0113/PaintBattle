@@ -10,6 +10,7 @@ import snowsan0113.paintbattle.command.TeamCommand;
 import snowsan0113.paintbattle.command.WeaponCommand;
 import snowsan0113.paintbattle.listener.InventoryClickListener;
 import snowsan0113.paintbattle.listener.LaunchHitListener;
+import snowsan0113.paintbattle.listener.PlayerChatListener;
 import snowsan0113.paintbattle.listener.PlayerClickListener;
 import snowsan0113.paintbattle.manager.ScoreboardManager;
 import snowsan0113.paintbattle.manager.weapon.RollerWeapon;
@@ -30,6 +31,7 @@ public final class Main extends JavaPlugin {
         plm.registerEvents(new PlayerClickListener(), this);
         plm.registerEvents(new InventoryClickListener(), this);
         plm.registerEvents(new LaunchHitListener(), this);
+        plm.registerEvents(new PlayerChatListener(), this);
 
         //other
         for (Player online : Bukkit.getOnlinePlayers()) {
