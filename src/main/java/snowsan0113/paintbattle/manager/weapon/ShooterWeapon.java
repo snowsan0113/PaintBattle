@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 import snowsan0113.paintbattle.Main;
+import snowsan0113.paintbattle.manager.AreaPaintManager;
 import snowsan0113.paintbattle.manager.TeamManager;
 import snowsan0113.paintbattle.util.ChatUtil;
 
@@ -55,7 +56,7 @@ public class ShooterWeapon implements Weapon {
 
     @Override
     public boolean canUseWeapon() {
-        return (health != 0);
+        return canUse;
     }
 
     public BukkitTask getTask() {
@@ -67,13 +68,15 @@ public class ShooterWeapon implements Weapon {
         Location p_loc = player.getLocation();
         Vector p_direction = p_loc.getDirection().clone();
         Snowball snowball = player.launchProjectile(Snowball.class);
+        snowball.setMetadata("player_uuid", new FixedMetadataValue(Main.getPlugin(Main.class), player.getUniqueId().toString()));
         snowball.setVelocity(p_direction.normalize().multiply(2));
     }
 
     @Override
     public void paintWool(Location location) {
         TeamManager.GameTeam team = TeamManager.getInstance().getJoinGameTeam(player);
-
+        Material paint_wool = AreaPaintManager.paint_wool_map.getOrDefault(team, Material.WHITE_WOOL);
+        location.getBlock().setType(paint_wool);
     }
 
     @Override
