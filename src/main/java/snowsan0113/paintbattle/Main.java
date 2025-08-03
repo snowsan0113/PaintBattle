@@ -8,10 +8,7 @@ import snowsan0113.paintbattle.command.GameStartCommand;
 import snowsan0113.paintbattle.command.MapCommand;
 import snowsan0113.paintbattle.command.TeamCommand;
 import snowsan0113.paintbattle.command.WeaponCommand;
-import snowsan0113.paintbattle.listener.InventoryClickListener;
-import snowsan0113.paintbattle.listener.LaunchHitListener;
-import snowsan0113.paintbattle.listener.PlayerChatListener;
-import snowsan0113.paintbattle.listener.PlayerClickListener;
+import snowsan0113.paintbattle.listener.*;
 import snowsan0113.paintbattle.manager.ScoreboardManager;
 import snowsan0113.paintbattle.manager.weapon.RollerWeapon;
 import snowsan0113.paintbattle.manager.weapon.WeaponManager;
@@ -32,6 +29,8 @@ public final class Main extends JavaPlugin {
         plm.registerEvents(new InventoryClickListener(), this);
         plm.registerEvents(new LaunchHitListener(), this);
         plm.registerEvents(new PlayerChatListener(), this);
+        plm.registerEvents(new PlayerJoinListener(), this);
+        plm.registerEvents(new PlayerDropListener(), this);
 
         //other
         for (Player online : Bukkit.getOnlinePlayers()) {
