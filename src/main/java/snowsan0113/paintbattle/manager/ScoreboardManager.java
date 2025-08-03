@@ -101,9 +101,12 @@ public class ScoreboardManager {
                 @Override
                 public void run() {
                     if (manager.getStatus() == GameManager.GameStatus.RUNNING) {
+                        String red_percent = String.format("%.2f", paint.getPaintPercent(TeamManager.GameTeam.RED) * 100);
+                        String blue_percent = String.format("%.2f", paint.getPaintPercent(TeamManager.GameTeam.BLUE) * 100);
+
                         getScore(28).updateScore(ChatColor.GOLD + ((manager.getTime() / 60) + "分" + (manager.getTime() % 60) + "秒"));
-                        getScore(26).updateScore(ChatColor.RED + "赤の塗り率：" + ChatColor.WHITE + Math.ceil(paint.getPaintPercent(TeamManager.GameTeam.RED)) + "%");
-                        getScore(25).updateScore(ChatColor.BLUE + "青の塗り率：" + ChatColor.WHITE + Math.ceil(paint.getPaintPercent(TeamManager.GameTeam.BLUE)) + "%");
+                        getScore(26).updateScore(ChatColor.RED + "赤の塗り率：" + ChatColor.WHITE + red_percent + "%");
+                        getScore(25).updateScore(ChatColor.BLUE + "青の塗り率：" + ChatColor.WHITE + blue_percent + "%");
                     }
                     else if (manager.getStatus() == GameManager.GameStatus.WAIITNG || manager.getStatus() == GameManager.GameStatus.CONNTING) {
                         getScore(26).updateScore(ChatColor.GOLD + "現在の人数：" + Bukkit.getOnlinePlayers().size());
