@@ -1,6 +1,7 @@
 package snowsan0113.paintbattle.manager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -24,7 +25,7 @@ public class GameManager {
 
     private GameManager() {
         this.count_time = 10;
-        this.game_time = 60*15;
+        this.game_time = 10;
         this.status = GameStatus.WAIITNG;
         this.world = Bukkit.getWorlds().get(0);
     }
@@ -63,12 +64,47 @@ public class GameManager {
                         }
                     }
                     else if (status == GameStatus.RUNNING) {
-
                         if (game_time == 0) {
+                            for (Player online : Bukkit.getOnlinePlayers()) {
+                                online.setGameMode(GameMode.SPECTATOR);
+                            }
+
+                            AreaPaintManager areaPaintManager = AreaPaintManager.getInstance();
+                            ChatUtil.sendGlobalMessage("ゲーム終了。結果は..");
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    double red_percent = areaPaintManager.getPaintPercent(TeamManager.GameTeam.RED);
+                                    double blue_percent = areaPaintManager.getPaintPercent(TeamManager.GameTeam.BLUE);
+
+                                    StringBuilder builder = new StringBuilder();
+                                    if (red_percent > blue_percent) {
+                                        builder.append("赤の勝ち");
+                                    }
+                                    else if (red_percent < blue_percent) {
+                                        builder.append("青の勝ち");
+                                    }
+                                    else if (red_percent == blue_percent){
+                                        builder.append("引き分け");
+                                    }
+
+                                    String red_string = String.format("%.2f", red_percent * 100);
+                                    String blue_string = String.format("%.2f", blue_percent * 100);
+                                    ChatUtil.sendGlobalMessage("==========" + "\n" +
+                                            "赤：" + red_string + "%　青：" + blue_string + "% \n" +
+                                            "で、" + builder.toString() + "です！" + "\n" +
+                                            "==========");
+
+                                    for (Player online : Bukkit.getOnlinePlayers()) {
+                                        online.setGameMode(GameMode.ADVENTURE);
+                                    }
+                                }
+                            }.runTaskLater(Main.getPlugin(Main.class), 20*2);
                             this.cancel();
                         }
-
-                        game_time--;
+                        else {
+                            game_time--;
+                        }
                     }
                 }
             }.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);
