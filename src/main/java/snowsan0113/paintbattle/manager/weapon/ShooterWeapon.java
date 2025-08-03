@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -29,7 +30,8 @@ public class ShooterWeapon implements Weapon {
         this.task = new BukkitRunnable() {
             @Override
             public void run() {
-                if (player.getItemInHand().getType() == WeaponType.ROLLER.getItem().getType()) {
+                PlayerInventory inv = player.getInventory();
+                if (inv.getItemInMainHand().isSimilar(getType().getItem())) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("残りの武器体力：" + health));
 
                     //flag

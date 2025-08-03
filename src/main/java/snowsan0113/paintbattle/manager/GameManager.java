@@ -3,9 +3,13 @@ package snowsan0113.paintbattle.manager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import snowsan0113.paintbattle.Main;
+import snowsan0113.paintbattle.manager.weapon.Weapon;
+import snowsan0113.paintbattle.manager.weapon.WeaponManager;
 import snowsan0113.paintbattle.util.ChatUtil;
 
 public class GameManager {
@@ -41,7 +45,15 @@ public class GameManager {
                             status = GameStatus.RUNNING;
 
                             for (Player online : Bukkit.getOnlinePlayers()) {
+                                WeaponManager weaponManager = WeaponManager.getInstance();
+                                @Nullable Weapon weapon = weaponManager.getWeapon(online);
+                                PlayerInventory inv = online.getInventory();
+                                inv.clear();
                                 ScoreboardManager.getInstance(online.getUniqueId()).setScoreboard();
+
+                                if (weapon != null) {
+                                    inv.addItem(weapon.getType().getItem());
+                                }
                             }
                         }
                         else {

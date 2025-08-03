@@ -25,14 +25,16 @@ public class PlayerClickListener implements Listener {
             weapon_manager.openSelectMenu(player);
         }
         if (player_weapon != null) {
-            if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
-                player_weapon.reset();
+            if (item.isSimilar(player_weapon.getType().getItem())) {
+                if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
+                    player_weapon.reset();
+                }
+                else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+                    player_weapon.runClickAction();
+                }
+                event.setCancelled(true);
+                event.setUseInteractedBlock(Event.Result.DENY);
             }
-            else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-                player_weapon.runClickAction();
-            }
-            event.setCancelled(true);
-            event.setUseInteractedBlock(Event.Result.DENY);
         }
     } 
     
