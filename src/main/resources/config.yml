@@ -7,3 +7,17 @@ area:
     x:
     y:
     z:
+
+location:
+  lobby:
+    x:
+    y:
+    z:
+  red_spawn:
+    x:
+    y:
+    z:
+  blue_spawn:
+    x:
+    y:
+    z:

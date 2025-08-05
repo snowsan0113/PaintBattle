@@ -2,6 +2,7 @@ package snowsan0113.paintbattle.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -36,6 +37,7 @@ public class GameManager {
 
     public int startGame() {
         if (task == null) {
+            TeamManager team = TeamManager.getInstance();
             this.task = new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -46,6 +48,13 @@ public class GameManager {
                             status = GameStatus.RUNNING;
 
                             for (Player online : Bukkit.getOnlinePlayers()) {
+                                if (team.getJoinGameTeam(online) == TeamManager.GameTeam.RED) {
+                                    online.teleport(LocationManager.getLocation(LocationManager.LocationPathType.RED_SPAWN, world));
+                                }
+                                else if (team.getJoinGameTeam(online) == TeamManager.GameTeam.BLUE) {
+                                    online.teleport(LocationManager.getLocation(LocationManager.LocationPathType.BLUE_SPAWN, world));
+                                }
+
                                 WeaponManager weaponManager = WeaponManager.getInstance();
                                 @Nullable Weapon weapon = weaponManager.getWeapon(online);
                                 PlayerInventory inv = online.getInventory();
@@ -97,6 +106,7 @@ public class GameManager {
 
                                     for (Player online : Bukkit.getOnlinePlayers()) {
                                         online.setGameMode(GameMode.ADVENTURE);
+                                        online.teleport(LocationManager.getLocation(LocationManager.LocationPathType.LOBBY, world));
                                     }
                                 }
                             }.runTaskLater(Main.getPlugin(Main.class), 20*2);
