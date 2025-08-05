@@ -101,8 +101,10 @@ public class ScoreboardManager {
                 @Override
                 public void run() {
                     if (manager.getStatus() == GameManager.GameStatus.RUNNING) {
-                        String red_percent = String.format("%.2f", paint.getPaintPercent(TeamManager.GameTeam.RED) * 100);
-                        String blue_percent = String.format("%.2f", paint.getPaintPercent(TeamManager.GameTeam.BLUE) * 100);
+                        double red = paint.getPaintPercent(TeamManager.GameTeam.RED) * 100;
+                        double blue = paint.getPaintPercent(TeamManager.GameTeam.BLUE) * 100;
+                        String red_percent = String.format("%.2f", red);
+                        String blue_percent = String.format("%.2f", blue);
 
                         getScore(28).updateScore(ChatColor.GOLD + ((manager.getTime() / 60) + "分" + (manager.getTime() % 60) + "秒"));
                         getScore(26).updateScore(ChatColor.RED + "赤の塗り率：" + ChatColor.WHITE + red_percent + "%");

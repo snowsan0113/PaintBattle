@@ -6,9 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import snowsan0113.paintbattle.Main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AreaPaintManager {
@@ -51,13 +49,22 @@ public class AreaPaintManager {
     }
 
     public double getPaintPercent(TeamManager.GameTeam team) {
-        List<Location> location_list = new MapManager().getLocationList();
-        long wool_size = location_list.stream().filter(location -> {
-            Block block = location.getBlock();
-            return block.getType() == paint_wool_map.get(team);
-        }).count();
+        List<Location> loc_list = new MapManager().getLocationList();
+        List<Location> white_wool_list = loc_list.stream().filter(location -> location.getBlock().getType() == Material.WHITE_WOOL).collect(Collectors.toList());
+        List<Location> red_wool_list = loc_list.stream().filter(location -> location.getBlock().getType() == Material.RED_WOOL).collect(Collectors.toList());
+        List<Location> blue_wool_list = loc_list.stream().filter(location -> location.getBlock().getType() == Material.BLUE_WOOL).collect(Collectors.toList());
 
-        return ((double) wool_size / location_list.size()) * 100;
+        int all_size = (red_wool_list.size() + blue_wool_list.size() + white_wool_list.size());
+
+        if (team == TeamManager.GameTeam.RED) {
+            return (double) red_wool_list.size() / all_size;
+        }
+        else if (team == TeamManager.GameTeam.BLUE) {
+            return (double) blue_wool_list.size() / all_size;
+        }
+        else {
+            return 0;
+        }
     }
 
     public FileConfiguration getConfig() {
