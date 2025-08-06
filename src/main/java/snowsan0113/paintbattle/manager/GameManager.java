@@ -47,6 +47,7 @@ public class GameManager {
                             ChatUtil.sendGlobalMessage("ゲーム開始!");
                             status = GameStatus.RUNNING;
 
+                            team.assignOnlinePlayer(null);
                             for (Player online : Bukkit.getOnlinePlayers()) {
                                 if (team.getJoinGameTeam(online) == TeamManager.GameTeam.RED) {
                                     online.teleport(LocationManager.getLocation(LocationManager.LocationPathType.RED_SPAWN, world));

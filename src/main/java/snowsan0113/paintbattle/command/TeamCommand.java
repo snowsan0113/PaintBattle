@@ -40,6 +40,10 @@ public class TeamCommand implements CommandExecutor {
                     ChatUtil.sendMessage(sender, "青に参加させました。");
                 }
             }
+            else if (args[0].equalsIgnoreCase("assign")) {
+                team.assignOnlinePlayer(null);
+                ChatUtil.sendMessage(sender, "チームを割り当てました。");
+            }
         }
         return false;
     }

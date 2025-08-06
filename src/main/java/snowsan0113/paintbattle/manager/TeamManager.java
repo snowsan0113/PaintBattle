@@ -8,9 +8,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TeamManager {
 
@@ -59,6 +59,14 @@ public class TeamManager {
         return false;
     }
 
+    public void clearTeam() {
+        for (Team team : team_map.values()) {
+            for (String entry : team.getEntries()) {
+                team.removeEntry(entry);
+            }
+        }
+    }
+
     public boolean isJoinTeam(@NonNull OfflinePlayer player) {
         for (Map.Entry<GameTeam, Team> entry : team_map.entrySet()) {
             GameTeam game_team = entry.getKey();
@@ -68,6 +76,45 @@ public class TeamManager {
             }
         }
         return false;
+    }
+
+    /**
+
+     */
+    public void assignOnlinePlayer(List<Player> exclude_players) {
+        List<Player> assign_player = new ArrayList<>(Bukkit.getOnlinePlayers());
+        if (exclude_players != null) assign_player.removeAll(exclude_players);
+
+        clearTeam();
+        Collections.shuffle(assign_player);
+
+        int half = assign_player.size() / 2;
+
+        List<GameTeam> team_list = Arrays.asList(GameTeam.RED, GameTeam.BLUE);
+        Collections.shuffle(team_list);
+        for (int n = 0; n < half; n++) {
+            Player player = assign_player.get(n);
+            joinTeam(team_list.get(0), player);
+        }
+        for (int n = half; n < assign_player.size(); n++) {
+            Player player = assign_player.get(n);
+            joinTeam(team_list.get(1), player);
+        }
+    }
+
+    public void assignPlayer(Player player) {
+        Set<String> red_entry = team_map.get(GameTeam.RED).getEntries();
+        Set<String> blue_entry = team_map.get(GameTeam.BLUE).getEntries();
+
+        if (red_entry.size() > blue_entry.size()) {
+            joinTeam(GameTeam.BLUE, player);
+        }
+        else if (red_entry.size() < blue_entry.size()) {
+            joinTeam(GameTeam.RED, player);
+        }
+        else {
+            joinTeam(GameTeam.RED, player);
+        }
     }
 
     /**
